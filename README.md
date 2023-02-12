@@ -159,76 +159,79 @@ spazefalcon (super-ninja, hermit, falcon, human, man) ~ : )
 
 # DESIGN PRINCIPLEZ (codified) //work in progress
 
-1) "Hero to Zero, and Zero to Hero"
+> "Hero to Zero, and Zero to Hero"
 
 > at any moment a hero can act a villian, as at any momant, a villian can act a hero.
 
-2) "Identity is a WISH"
+> "Identity is a WISH"
 
 > I am who I say I am, and never totally, what any other SOUL sees me to be.
 
-3) "Self-Assigned-Identity over Social-Assigned-Identity"
+> "Self-Assigned-Identity over Social-Assigned-Identity"
 
 > No society, can tell a SOUL who they are, only a SOUL can WISH for itself.
 
-4) "Peer Identity is Flawed"
+> "Peer Identity is Flawed"
 
 > Peer identity is a projected-identity, and this is why it is always partially flawed.
 
-5) "Identity is chozen not given"
+> "Identity is chozen not given"
 
 > All souls, chooze IDENTITY, based on ACTZ.
 
-SMART-CONTRACT mechanism needs to be constantly fluid - or else become eventually flawed and obsolete.
+>OBJECTIVE and ANONYMOUS. NON-STATIC and NON-ABSOLUTE,FLUID, SELF-ASSIGNED, SOCIAL-ASSIGNED and REVERSIBLE.
 
-the entire IDENTITY-MECHANISM must be OBJECTIVE and ANONYMOUS. NON-STATIC and NON-ABSOLUTE
-
-FLUIDITY - all people change, so the system of identity must be able to change with the people.
+> FLUIDITY - all people change, so the system of identity must also change with people.
 
 > You never know exactly, who your true friendz are, until you need them the most, and they chooze to ACT or not ACT on your behalf.
 
 > Any HERO can act a ZERO, and any ZERO can rise to HERO, at any time.
 
-7) ACTZ are the behaviors of a person, driven by CHOICEZ.
+> ACTZ are the behaviors of a person, driven by CHOICEZ.
 
 > No one can deny, what any other SOUL... wishes to be. 
 
-> Filter out BAD-ACTORZ like Mountain-Water.
-design IDENTITY SYSTEMS to filter out pollution like mountain-water
+> Filter out BAD-ACTORZ like social-pollutants in Mountain-Water.
 
+> design IDENTITY SYSTEMS to filter out pollution like mountain-water
 
 > One ACT is forgivable-inno-sense, while the other is distructive-intent. See?
 
-
-9) Identity is NON-ABSOLUTE. We are always on a SPECTRUM of character.
+> Identity is NON-ABSOLUTE. Every ACT on a SPECTRUM of character.
 
 > Our IDENTITY changes, depending on who validates us.
 
 > So BAD-ACTORZ and BAD-VALIDATORZ need to be seen and not heard. While GOOD-ACTORZ and GOOD-VALIDATORS need to be AMPLIFIED. That is how.
 
-USE DIDz (DIGITAL-IDENTITY-MATRIX) to specify exact behaviors to objectively assign (suspected) ACTZ.
+> USE DIDz (DIGITAL-IDENTITY-MATRIX) to specify exact behaviors to objectively (suspected) ACTZ.
 
-Pay careful attention to "inverzionz" (INVERTZ) because they are very confusing.
+> Pay careful attention to "inverzionz" (INVERTZ) because they are very confusing.
 
-FLUID SYSTEM - requires NON-IDENTITY CONCEPTZ.
+> FLUID SYSTEM - requires NON-IDENTITY CONCEPTZ.
 
-- STATUS TRANSPARENCY - everyone can view, and change the status of anyone. (like a vote)
+> STATUS TRANSPARENCY - everyone can view, and change the status of anyone. (like a vote)
 
-> if a system requires TRUST to be secure, it can never be totally secured. However, if a system does not require TRUST at all, but is instead TRUSTLESS. That means everything is fully transparent and can be endlessly reviewed by 3rd parties - in order to arrive at a sensible and fair - concensus. Even in the event of unexpective distructive behavior.
+> Events of FULL-SOCIAL-CONCENSUS, can still be actually wrong.
 
+> Systems that require TRUST to be secure, can never be totally secured. 
 
-> start simple and gradually add each branch of interaction, as needed (not before). So as to gradually account for the vast complexity, and do not pretent to solve a massive complexity - all at once. 
+> TRUSTLESS means everything is transparent and can be endlessly reviewed by 3rd parties - in order to arrive at a sensible and fair concensus. 
 
-Reflect reality, don't fight it.
-> reflect the complexity, accurately, do not try to fight it. Like a Mountain-Stream, not a Castle-Moat. This is very important difference in IDENTITY_DESIGN.
+> start simple and gradually add each branch of interaction, as needed (not before). Do not pretent to solve a massive complexity - all at once. 
 
-ACCOUNT for humanz who change over time
-Account for disvalidationz.
-Account for innosense
-Account for redemption
-Account for groups and tribes
-Account for anonymity
+> confuzion is reduced by enhancement of words. 
+> confuzion increased by ambiguity and cacophony - of too many words used into many disparate purposes! 
 
-After people get the idea, confuzion is reduced, by enhancement of words. Opposite of concepts restricted by the ambiquity and cacophony - of too many words used forced into too many disparate purposes! Humanz get that we need more tools of intelligence, and clarity, not less!
+> Humanz need more tools of intelligence, and clarity, not less
+
+> Reflect reality, don't fight it.
+> Identity, like a Mountain-Stream purifies water, not a Castle-Moat collects contaminants. 
+
+> ACCOUNT for humanz who change over time
+> Account for disvalidationz.
+> Account for innosense
+> Account for redemption
+> Account for groups and tribes
+> Account for anonymity
 
 //work in progress
