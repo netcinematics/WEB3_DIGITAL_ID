@@ -1,12 +1,27 @@
 # WEB3_DIGITAL_ID
 
-Web3 Digital Identity System (DIDz), is a lightweight and fun, identity verification system, that uses self-assigned attributes, and social-proof to emulate the reality of fluid identity. You MINT your own IDENTITY, while others: validate, verify, deny, or gatekeep... your identity. Interesting? : )
+Web3 Digital Identity System (DIDz), is a lightweight and fun, identity verification system. It uses self-assigned attributes, and social-proof to emulate - fluid identity. Where you MINT your own IDENTITY, for others tp: validate, verify, deny, or gatekeep... your identity. Interested?
+It is almost... like a GAME! : )
 
 ## OVERVIEW
 
-Human Identity is a very complicated concept (contrary to popular belief). It is fluid, changing moment to moment, and can be very confusing.
+Human Identity is a very complicated concept (contrary to popular belief). It is fluid, changing moment to moment, and can be very confusing to validate good-actors, or to confirm bad-actors. This MVP (PoC) DIDz System is a thoughtful experiment in solving that very tricky puzzle!
 
-The entire system is based on key design principles.
+The entire system is based on key design principles (below), with a gradual rollout methodology. That starts with ONLY 2 SIMPLE USE CASES! That can scale-up dramatically... thereafter.
+
+# DIDz MVP - 2 SIMPLE USE CASES:
+
+1) MINT SELF-ASSIGN IDENTITY
+INPUT: wallet0x, alias, timestamp
+OUTPUT: NFT SVG with WALLET 0x, alias, timestamp with WORDS with SYMBOLS of IDENTITY.
+
+2)  VALIDATE IDENTITY
+INPUT: wallet address
+OUTPUT: 0x, wallet0x, alias, timestamp, words of IDENTITY.
+
+That is it!!!
+
+
 
 ### IDENTITY_DESIGN_PRINCIPLE_#1
 > at any moment a hero can act as villian, and
@@ -235,3 +250,27 @@ spazefalcon (super-ninja, hermit, falcon, human, man) ~ : )
 > Account for anonymity
 
 //work in progress
+
+### RANDOM-QUESTIONS
+
+Pirate or Ninja
+
+Cake or Ice cream
+
+Coffee or Tea
+
+Clarity or Confusion
+
+Peace or Chaos
+
+Wizard or Jester
+
+Channels that lead to Golden-Heart or Dark-Heart
+
+Builder / Architect / Distroyer / Assasin
+
+Wizdom or Illusion
+
+Teacher or Magician
+
+What else?

@@ -71,6 +71,7 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
+.env*
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -102,3 +103,15 @@ dist
 
 # TernJS port file
 .tern-port
+
+node_modules
+.env
+coverage
+coverage.json
+typechain
+typechain-types
+
+# Hardhat files
+cache
+artifacts
+
