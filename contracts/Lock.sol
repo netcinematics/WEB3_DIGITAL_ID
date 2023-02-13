@@ -31,7 +31,6 @@ contract Lock {
         require(msg.sender == owner, "You aren't the owner");
 
         emit Withdrawal(address(this).balance, block.timestamp);
-
         owner.transfer(address(this).balance);
     }
 }

@@ -110,7 +110,17 @@ HOW TO FIX?
 COMMIT to GITHUB: 9 tests passing, Lock.sol compiling, deployed twice. Withdraw later?
 
 
+## DEV CYCLE
 
+//RUN SINGLE TEST FILE
+> npx hardhat test ./test/PirateNinja.test.js
+
+//RUN SINGLE COMPILE FILE (not possible)
+> npx hardhat compile ./contracts/PirateNinja.sol //error 
+
+//cool thing
+> npx hardhat --help
+> npx hardhat coverage //generates /coverage and instanbul test coverage data
 
 
 # Sample Hardhat Project

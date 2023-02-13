@@ -56,7 +56,7 @@ DIDz is a fun way to organize all this human charade!
 
 > To review this COMPLEX PUZZLE: a) IDENTITY is self-assigned, then b) socially-assigned. Also c) frequently flawed and can d) change over time. So if we are to accurately account for IDENTITY, we need to c) observe the actual nature of: IDENTITY-FLUIDITY and simply reflect its state. So the SMART-CONTRACT mechanism needs to be constantly fluid - or else become eventually flawed and obsolete.
 
-6) NON-STATIC validation of FRIENDz. We anonymously become friends. We anonymously validate that friend over time. And then we can anonymously DISVALIDATE that relationship later. Disvalidation is painful, and is based on whether we forgive or trust or become disinterested in the relationship. That is why the entire IDENTITY-MECHANISM must be OBJECTIVE and ANONYMOUS. 
+6) NON-STATIC validation of FRIENDz. We anonymously become friends. We anonymously validate that friend over time. And then we can anonymously DISVALIDATE that relationship later. Disvalidation is painful, and is based on whether we forgive or trust or become disinterested in the relationship. That is why the entire IDENTITY-MECHANISM must be OBJECTIVE and ANONYMOUS. (this may be wrong.)
 
 > You never know exactly, who your true friendz are, until you need them the most, and they chooze to ACT or not ACT on your behalf.
 
@@ -274,3 +274,22 @@ Wizdom or Illusion
 Teacher or Magician
 
 What else?
+
+### META-IDENTITY and IDENTITY-ANALYTICS. 
+Human Social-Status is part rational system and part irrational charade. With great irony, all of the data compiled on IDENTITY is always potentially an invalid data-point. This is for two reasons 1) the validator could be misinformed or the validator could be bad-validator, 2) the bad-actor can change. But the irony here is - even in massive confusion of invalid data-points, the METADATA itself paints an accurate picture of the IDENTITY. For example, think of any president. Love 'em or hate 'em - what is their identity? Loved by some hated by some - and indifferent by others. The ironic thing here, is that while the metadata from any individual voter - is partly uninformed - the metadata overall paints a picture of controversial or supported or misunderstood: as compared to actual reality. So the point here is around the law-of-large-numbers. It is not any one validator that confirms the identity of an individual - it is the sum total of them all. That is the concept of META-IDENTITY informed by IDENTITY-ANALYTICS. 
+
+### VALID, INVALID, AFFIRMATION and REDEMPTION and RETRIBUTION. 
+One of the most confusing aspects of human charade in validating our actual behavior - is observably - around the DUAL-VALIDATION of any singular validation act. This is apparent as a MANAGER. 
+
+> That any time a validator chooses to review anothers behavior of actual incompetence, also simultaneously in view - is the competence of the validator! 
+
+So we naturally see instance of (actual) BAD-VALIDATOR which should be overturned when (actual) GOOD-ACTOR receives REDEMPTION. And also the inverse, where (actual) BAD-ACTOR succeeds in making (actual) GOOD-VALIDATOR appear bad. The GOOD-VALIDATOR needs AFFIRMATION that the BAD-ACTOR, was actually originally bad, then in addition acted in RETRIBUTION. Notice how all this "charade" is easily overwhelming to human ability to keep it all straight. I'd like to point out - it is not overwhelming for a system to keep track of all of these ACTZ. The time this becomes CRITICAL is when under constant attack by BOTZ and we build a MOAT around our CASTLE. The problem here is that the VALIDATOR, following PROTECTION-PROTOCOL unwittedly gatekeeps in a way that keeps GOOD-ACTORS out. 
+
+> Observe that it is a WIN for BAD-ACTORS, when GOOD-VALIDATORS begin to mistakenly keep GOOD-ACTORS out. And one point further - that actual instance - is exactly why this system is needed as a PUBLIC GOOD. 
+
+> Not only to ensure that BAD-ACTORS are kept at bay - but also that GOOD-ACTORS are not silently (and wrongly) turned away at the GATES.
+
+### SUBTERFUGE and SABOTAGE
+Notice how a confused student is different from a intrepid hacker. BOTH may seek redemption for an INVALIDATION. But one... is willing to admit the mistake, while the other refuses to acknowledge wrongdoing and improvement. It is exactly systems like this that sink the toxins and flow the fresh water. The INVALIDATION is a simultaneous learning-opportunity. For BOTH the student and the hacker. Where the idea is, we allow BOTH in with a WARNING (and a redemption). However with the knowledge of wrongness - the student will never willfully ACT this way again, while the HACKER ... continues to probe-for-weakness. Same as above. No single measure confirms the existence of confused student or hacker. But it is the META accumulation of ACTZ that paints the picture. Ironically, a system that collects such ACTZ accurately is enough to discourage the hacker, and encourage the GOOD-ACTOR. 
+
+> Because it appears, the student is willing to invest time and effort in receiving knowledge and diploma. While the hacker has no interest in a zero-sum-game. That is the mechanism to fine-tune here.
