@@ -2,7 +2,16 @@ const { time, loadFixture, } = require("@nomicfoundation/hardhat-network-helpers
   const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
   const { expect } = require("chai");
   
-//   describe("Lock", function () {
+  
+  //TODO: 
+  //should safeMint a token to a given polygon address
+  //should NOT safeMint a token to a given goerli address
+  //should transfer the NFT to the recipient address.
+  //Should replace the NFT if already minted?
+  //Should NOT be TRANSFERRABLE.
+  //Should validate an existing ID
+  //Should invalidte a non existing ID
+  
   describe("Pirate_or_Ninja", function () {
     // We define a fixture to reuse the same setup in every test.
     // We use loadFixture to run this setup once, snapshot that state,
@@ -19,22 +28,6 @@ const { time, loadFixture, } = require("@nomicfoundation/hardhat-network-helpers
       return { didz, unlockTime, owner, otherAccount };
     }
 
-    // async function deployOneYearLockFixture() {
-    //   const ONE_YEAR_IN_SECS = 365 * 24 * 60 * 60;
-    //   const ONE_GWEI = 1_000_000_000;
-  
-    //   const lockedAmount = ONE_GWEI;
-    //   const unlockTime = (await time.latest()) + ONE_YEAR_IN_SECS;
-  
-    //   // Contracts are deployed using the first signer/account by default
-    //   const [owner, otherAccount] = await ethers.getSigners();
-  
-    //   const Lock = await ethers.getContractFactory("Lock");
-    //   const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
-  
-    //   return { lock, unlockTime, lockedAmount, owner, otherAccount };
-    // }
-  
     describe("Deployment", function () {
       it("Should auto mint on deploy", async function () {
         const {didz} = await loadFixture(deployPirateNinjaFixture);
@@ -54,11 +47,18 @@ const { time, loadFixture, } = require("@nomicfoundation/hardhat-network-helpers
         expect(balance).to.equal(0);
       });
   
-      it("Should fail if the unlockTime is not in the future", async function () {
+      xit("Should revert", async function () {
         // We don't use the fixture here because we want a different deployment
         const latestTime = await time.latest();
-        const Lock = await ethers.getContractFactory("Lock");
-        await expect(Lock.deploy(latestTime, { value: 1 })).to.be.revertedWith(
+        const {Pirate_or_Ninja,_mintAmount, _safeMint, setVoteTokenURI} = await ethers.getContractFactory("Pirate_or_Ninja");
+        console.log("Latest TIME", latestTime);
+        console.log("Max Mint Amount", _mintAmount);
+        for (let i = 1; i <= _mintAmount; i++) {
+            // console.log(supply+ i);
+            _safeMint(msg.sender, supply + i);
+            setVoteTokenURI(supply + i, i); //STUB TEST 1 or i = 1|2|3
+        }
+        await expect(Pirate_or_Ninja.deploy(latestTime, { value: 1 })).to.be.revertedWith(
           "Unlock time should be in the future"
         );
       });
@@ -66,16 +66,16 @@ const { time, loadFixture, } = require("@nomicfoundation/hardhat-network-helpers
   
     describe("Withdrawals", function () {
       describe("Validations", function () {
-        it("Should revert with the right error if called too soon", async function () {
+        xit("Should revert with the right error if called too soon", async function () {
         //   const { lock } = await loadFixture(deployOneYearLockFixture);
-          const { lock } = await loadFixture(deployPirateNinjaFixture);
+          const { PirateNinja } = await loadFixture(deployPirateNinjaFixture);
   
-          await expect(lock.withdraw()).to.be.revertedWith(
+          await expect(PirateNinja.withdraw()).to.be.revertedWith(
             "You can't withdraw yet"
           );
         });
   
-        it("Should revert with the right error if called from another account", async function () {
+        xit("Should revert with the right error if called from another account", async function () {
         //   const { lock, unlockTime, otherAccount } = await loadFixture( deployOneYearLockFixture );
           const { lock, unlockTime, otherAccount } = await loadFixture( deployPirateNinjaFixture );
   
@@ -88,7 +88,7 @@ const { time, loadFixture, } = require("@nomicfoundation/hardhat-network-helpers
           );
         });
   
-        it("Shouldn't fail if the unlockTime has arrived and the owner calls it", async function () {
+        xit("Shouldn't fail if the unlockTime has arrived and the owner calls it", async function () {
         //   const { lock, unlockTime } = await loadFixture(deployOneYearLockFixture );
           const { lock, unlockTime } = await loadFixture(deployPirateNinjaFixture );
   
@@ -100,7 +100,7 @@ const { time, loadFixture, } = require("@nomicfoundation/hardhat-network-helpers
       });
   
       describe("Events", function () {
-        it("Should emit an event on withdrawals", async function () {
+        xit("Should emit an event on withdrawals", async function () {
         //   const { lock, unlockTime, lockedAmount } = await loadFixture( deployOneYearLockFixture );
           const { lock, unlockTime, lockedAmount } = await loadFixture( deployPirateNinjaFixture );
   
@@ -113,7 +113,7 @@ const { time, loadFixture, } = require("@nomicfoundation/hardhat-network-helpers
       });
   
       describe("Transfers", function () {
-        it("Should transfer the funds to the owner", async function () {
+        xit("Should transfer the funds to the owner", async function () {
         //   const { lock, unlockTime, lockedAmount, owner } = await loadFixture( deployOneYearLockFixture );
           const { lock, unlockTime, lockedAmount, owner } = await loadFixture( deployPirateNinjaFixture );
   

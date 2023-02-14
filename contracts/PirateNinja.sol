@@ -46,7 +46,7 @@ contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
     /// @dev See: Storage
     mapping(uint256 => string) private _tokenURIs; // mapping for token URIs: holds ipfs AND json.
     /// @dev See: Enumerable
-    uint256 public maxVoteSupply = 100;
+    uint256 public maxMintSupply = 100; //Max number of mints from this contract.
     string public baseURI;
     bool public paused = false; 
 
@@ -65,8 +65,8 @@ contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
     require(!paused);
     uint256 _mintAmount = 3;
     require(_mintAmount > 0);
-    require( totalSupply() <= maxVoteSupply); //MINT MAX
-    require(supply + _mintAmount <= maxVoteSupply); //less than maximum votes allowed.
+    require( totalSupply() <= maxMintSupply); //MINT MAX
+    require(supply + _mintAmount <= maxMintSupply); //less than maximum votes allowed.
     //AUTOMATIC BATCH MINT
     for (uint8 i = 1; i <= _mintAmount; i++) {
         // console.log(supply+ i);
@@ -91,7 +91,7 @@ contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
       require(!paused);
       require(to != address(0), "bad address");
       require((vote ==1 || vote ==2), "bad vote");
-      require( totalSupply() <= maxVoteSupply); //MINT MAX
+      require( totalSupply() <= maxMintSupply); //MINT MAX
       //---------------------------
       //PREPARE THE VOTE...MINT.
       string memory voteURL = "";
