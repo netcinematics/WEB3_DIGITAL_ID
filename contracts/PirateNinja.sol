@@ -29,8 +29,10 @@ import "@openzeppelin/contracts/utils/Base64.sol"; //Used for CASTVOTE NFT creat
 import "hardhat/console.sol";
 /// @custom:security-contact spazefalcon4@protonmail.com
 // contract Random_Vote is ERC721Enumerable, Ownable { //Enumerable for totalSupply
-contract Random_Electionz is ERC721Enumerable { //Enumerable for totalSupply
+contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
 // contract Random_Vote is ERC721, Ownable {
+
+    address payable public owner;
     using Strings for uint256; //for tokenId.toString()
     using Strings for uint8;   //for vote.toString()
 
@@ -50,6 +52,8 @@ contract Random_Electionz is ERC721Enumerable { //Enumerable for totalSupply
 
   constructor(string memory _name, string memory _symbol
   ) ERC721(_name, _symbol) {
+    console.log('DIDz Constructor');
+    owner = payable(msg.sender);
     //SET FROM NFT.STORAGE:
     // baseURI = "https://nftstorage.link/ipfs/bafybeiffqgslzarimnslbctkbnxdaffy7djrorvqic7bbdvrpspnqnxu4q/"; //PIZZAorBEER
     baseURI = "https://nftstorage.link/ipfs/bafybeihrpumapkmb4zxaqs6kc5kjc3l5i5x5ln7o3jcxbakubecluep3nu/"; //PIRATEorNINJA
@@ -65,7 +69,7 @@ contract Random_Electionz is ERC721Enumerable { //Enumerable for totalSupply
     require(supply + _mintAmount <= maxVoteSupply); //less than maximum votes allowed.
     //AUTOMATIC BATCH MINT
     for (uint8 i = 1; i <= _mintAmount; i++) {
-        console.log(supply+ i);
+        // console.log(supply+ i);
         _safeMint(msg.sender, supply + i);
         setVoteTokenURI(supply + i, i); //STUB TEST 1 or i = 1|2|3
     }
