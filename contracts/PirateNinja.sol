@@ -2,7 +2,7 @@
 // PIRATEorNINJA - MINT YOUR IDENTITY
 // 1) wallet address connects to Web3, 
 // 2) user selects PIRATE or NINJA 
-// 3) user clicks MINT button. Pirate or Ninja is MINTED to VOTER Wallet.
+// 3) user clicks MINT button. Pirate or Ninja is MINTED to Wallet.
 // 4) lookup of wallet finds Pirate or Ninja ID token
 
 //IMAGE-CREDITS | Pirate or Ninja | All CC0 SVG :
@@ -25,16 +25,14 @@ pragma solidity ^0.8.17;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol"; //total supply
 // import "@openzeppelin/contracts/access/Ownable.sol"; //for onlyOwner and owner()
 // import "@openzeppelin/contracts/utils/Counters.sol"; //unnecessary use totalSupply()+1
-import "@openzeppelin/contracts/utils/Base64.sol"; //Used for CASTVOTE NFT creation.
+import "@openzeppelin/contracts/utils/Base64.sol"; //Used for NFT creation.
 import "hardhat/console.sol";
 /// @custom:security-contact spazefalcon4@protonmail.com
-// contract Random_Vote is ERC721Enumerable, Ownable { //Enumerable for totalSupply
 contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
-// contract Random_Vote is ERC721, Ownable {
 
     address payable public owner;
     using Strings for uint256; //for tokenId.toString()
-    using Strings for uint8;   //for vote.toString()
+    using Strings for uint8;   //for identityData.toString()
 
     // using Counters for Counters.Counter; //dont neet because of supply()+1
     // Counters.Counter tokenIdCounter;
@@ -66,46 +64,54 @@ contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
     uint256 _mintAmount = 3;
     require(_mintAmount > 0);
     require( totalSupply() <= maxMintSupply); //MINT MAX
-    require(supply + _mintAmount <= maxMintSupply); //less than maximum votes allowed.
+    require(supply + _mintAmount <= maxMintSupply); //less than maximum allowed.
     //AUTOMATIC BATCH MINT
     for (uint8 i = 1; i <= _mintAmount; i++) {
         // console.log(supply+ i);
         _safeMint(msg.sender, supply + i);
-        setVoteTokenURI(supply + i, i); //STUB TEST 1 or i = 1|2|3
+        setTokenURI(supply + i, i); //STUB TEST 1 or i = 1|2|3
     }
   }
 
+  // function safeMintPirateNinjaID(address to) public {
+  //   console.log("SAFEMINT to:", to, totalSupply()+1);
+  //   _safeMint(msg.sender, totalSupply() + 1);
+  //   setTokenURI(totalSupply() + 1, 1); //STUB TEST 1 or i = 1|2|3
+  // }
+
+
   /// @dev this is to test batch mint - remove in prod
-  function setVoteTokenURI(uint256 tokenId, uint8 vote) public returns (string memory){
+  function setTokenURI(uint256 tokenId, uint8 identityData) public returns (string memory){
     require(_exists(tokenId),"ERC721Metadata: URI query for nonexistent token");
     // require(baseURI,"no base.");
     string memory voteURL = "";
-    walletVotes[msg.sender] = vote;  //overwritten, 1,2,3!
+    walletVotes[msg.sender] = identityData;  //overwritten, 1,2,3!
     walletIndex.push(msg.sender); //TRACK INDEX fix for mapping no loop.
     voteURL = string(abi.encodePacked(baseURI, tokenId.toString(), ".json"));  
     _setTokenURI(tokenId,voteURL);
     return voteURL;
   }
 
-  function castNFTVote(address to, uint8 vote) public returns (string memory) {
+  // function castNFTVote(address to, uint8 vote) public returns (string memory) {
+  function safeMintPirateNinjaID(address to, uint8 identityData) public returns (string memory) {
       require(!paused);
       require(to != address(0), "bad address");
-      require((vote ==1 || vote ==2), "bad vote");
+      require((identityData ==1 || identityData ==2), "bad data");
       require( totalSupply() <= maxMintSupply); //MINT MAX
       //---------------------------
-      //PREPARE THE VOTE...MINT.
+      //PREPARE THE...MINT.
       string memory voteURL = "";
       string memory imageURLIPFS = "3";
-      if(vote==1){ //selection 1 img
+      if(identityData==1){ //selection 1 img
         imageURLIPFS = "ipfs://bafybeiabjffxg6grlmirw6mum6utcl4zbrukiytmqrbbt2jy2c2wkfekye/1.jpg";
-      } else if (vote==2){ //or selection2 img
+      } else if (identityData==2){ //or selection2 img
         imageURLIPFS = "ipfs://bafybeiabjffxg6grlmirw6mum6utcl4zbrukiytmqrbbt2jy2c2wkfekye/2.jpg";
       }
       // imageURLIPFS = "ipfs://bafybeicymzff6xcetv7egchzx4j5l5h5yuoso33ydruflixq6kdodqj2b4/1.jpg";//PIZZA!
       // imageURLIPFS = "ipfs://bafybeicymzff6xcetv7egchzx4j5l5h5yuoso33ydruflixq6kdodqj2b4/2.jpg";//BEER!
-      walletVotes[to] = vote; //STUB (below also)
+      walletVotes[to] = identityData; //STUB (below also)
       walletIndex.push(to); //TRACK INDEX fix for mapping no loop.
-      voteURL = string(abi.encodePacked(baseURI, vote.toString(), ".json")); 
+      voteURL = string(abi.encodePacked(baseURI, identityData.toString(), ".json")); 
       //------------------------------------
       // JSON - Encode Base64 - metadata-----------
       string memory json = Base64.encode(
@@ -113,7 +119,7 @@ contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
               string(
                   abi.encodePacked(
                     '{"name": "',
-                    string( abi.encodePacked( "Vote", Strings.toString(totalSupply()+1) ) ),
+                    string( abi.encodePacked( "Identity", Strings.toString(totalSupply()+1) ) ),
                     '", "description": "descripto...", "image": "',
                     imageURLIPFS,
                     '"}'
@@ -125,12 +131,12 @@ contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
       string memory finalJSONTokenUri = string( // Prefix: data:application/json;base64
           abi.encodePacked("data:application/json;base64,", json)
       );
-      // MINT vote--------------------------------
+      // MINT--------------------------------
       _safeMint(to, totalSupply()+1);
       _setTokenURI(totalSupply(),finalJSONTokenUri); //This is not URL, but json obj. Saved in _tokenURIs[];
       //LATER this JSON is retrieved with _tokenURIs[tokenId]; No actual IPFS url, but Base64 encoded JSON string!
-      //END MINT vote-----------------------------
-      return "Vote Minted!";
+      //END MINT -----------------------------
+      return "Identity Minted!";
   }
 
   /// BELOVED - TOKENURI ----------------------------------------
@@ -153,28 +159,28 @@ contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
 
  /// ADMIN -------------------------------------
   //START ELECTION: record votes.
-  function startElection() public { //todo onlyadmin
-      require(electionRunning, "Already running");
-      electionRunning = true;
-      //RESET all ELECTION memory. TODO.
-  }
+  // function startElection() public { //todo onlyadmin
+  //     require(electionRunning, "Already running");
+  //     electionRunning = true;
+  //     //RESET all ELECTION memory. TODO.
+  // }
 
   function pause(bool _state) public { //TODO OnlyAdmin or onlyOwner
     paused = _state;
   }
 
-  function endElection() public { //todo onlyadmin
-      require(!electionRunning, "No election");
-      electionRunning = false;
-      //TABULATE ELECTION RESULTS
-      //MINT NFT to all VOTERS.
-      tabulateVOTEmintSVG(msg.sender); //TODO loop over walletVoters???
-  }
+  // function endElection() public { //todo onlyadmin
+  //     require(!electionRunning, "No election");
+  //     electionRunning = false;
+  //     //TABULATE ELECTION RESULTS
+  //     //MINT NFT to all VOTERS.
+  //     tabulateVOTEmintSVG(msg.sender); //TODO loop over walletVoters???
+  // }
 
-  function tabulateVOTEmintSVG(address to) public view returns (string memory) { 
-      //GET VOTE from tokenID
-      require(!paused);
-      require(to != address(0), "bad address");
+  // function tabulateVOTEmintSVG(address to) public view returns (string memory) { 
+  //     //GET VOTE from tokenID
+  //     require(!paused);
+  //     require(to != address(0), "bad address");
     //   require((vote ==1 || vote ==2), "bad vote");
       //---------------------------
     //   //PREPARE THE VOTE...MINT.
@@ -231,8 +237,8 @@ contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
     //   _setTokenURI(totalSupply(),finalJSONTokenUri); //This is not URL, but json obj. Saved in _tokenURIs[];
       //LATER this JSON is retrieved with _tokenURIs[tokenId]; No actual IPFS url!
       //END MINT vote-----------------------------
-      return "ELECTION-FINAL!";
-  }
+  //     return "ELECTION-FINAL!";
+  // }
 
 
 }

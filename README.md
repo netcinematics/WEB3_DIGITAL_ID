@@ -295,3 +295,11 @@ Notice how a confused student is different from a intrepid hacker. BOTH may seek
 > Because it appears, the student is willing to invest time and effort in receiving knowledge and diploma. While the hacker has no interest in a zero-sum-game. That is the mechanism to fine-tune here.
 
 > Some of our IDENTITY is given to us by our SOCIETY (correctly and incorrectly), and some of our IDENTITY is given to us by our SELF (correctly and incorrectly). Some of our IDENTITY is STATIC our whole life, and some of our IDENTITY changes in a lifetime.
+
+----
+
+# CONCLUSION:
+
+All of this can be emulated strategically and systematically, from a gamification perspective - ironically similar to the orignal proposal given from Buterin (just not WarCraft). The proposal here is ID CARDZ. Starting with the version he calls, "no need to discriminate", we will call light-weight identity systems. Whereas 'heavy-weight' identity systems would basically be iris scans - or something similar. And 'medium-weight' identity systems would be face ID match, etc. 
+
+Light-Weight Identity proves the distribution menchanisms. Allowing for self-assigned-identity that can change over time, and that is non-transferrable (kinda) and is non-sellable (kinda). But nobody will be hurt if someone dies and inherits a NINJA IDENTITY. 
