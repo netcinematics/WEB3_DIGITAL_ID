@@ -36,6 +36,7 @@ contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
 
     // using Counters for Counters.Counter; //dont neet because of supply()+1
     // Counters.Counter tokenIdCounter;
+    uint256 public maxMintSupply = 100; //Max number of mints from this contract.
 
     mapping (address => uint8 ) public walletVotes; 
     address[] public walletIndex = [address(0)]; //PROBLEMS with MAPPING (cant loop): at tokenId, put the wallet address. Use
@@ -44,7 +45,6 @@ contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
     /// @dev See: Storage
     mapping(uint256 => string) private _tokenURIs; // mapping for token URIs: holds ipfs AND json.
     /// @dev See: Enumerable
-    uint256 public maxMintSupply = 100; //Max number of mints from this contract.
     string public baseURI;
     bool public paused = false; 
 
@@ -94,10 +94,10 @@ contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
 
   // function castNFTVote(address to, uint8 vote) public returns (string memory) {
   function safeMintPirateNinjaID(address to, uint8 identityData) public returns (string memory) {
-      require(!paused);
+      require(!paused, "contract is paused");
       require(to != address(0), "bad address");
       require((identityData ==1 || identityData ==2), "bad data");
-      require( totalSupply() <= maxMintSupply); //MINT MAX
+      require( totalSupply() <= maxMintSupply, "MAX-MINT reached" ); 
       //---------------------------
       //PREPARE THE...MINT.
       string memory voteURL = "";

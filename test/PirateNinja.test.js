@@ -43,46 +43,38 @@ const { time, loadFixture, } = require("@nomicfoundation/hardhat-network-helpers
             expect(await didz.totalSupply()).to.equal(4);
             expect(await didz.ownerOf(4)).to.equal(secondAccount.address);
         });
-  
-  //TODO: 
-  //X should safeMint a token to a given polygon address
-  //O should NOT safeMint a token to a given goerli address
-  //X should transfer the NFT to the recipient address.
-  //O Should replace the NFT if already minted?
-  //O Should validate an existing ID
-  //O Should invalidte a non existing ID
-  //O EVENT reverts.
-  //O Transfer to see it work, then
-  //O Should NOT be TRANSFERRABLE.
-  //O is it minting anywhere? review 003
-  //O try to combine ninja and 003?
-  //O do 005 dynamic
-  //O ambassador program AU
-  //O max 100 revert
-  //O value and withdraw
-  //O deploy URL check.
-  //O validation of identity
-  //O link to front end
 
-    xit("Should revert", async function () {
-        // We don't use the fixture here because we want a different deployment
-        // const latestTime = await time.latest();
-        // console.log("Latest TIME", latestTime);
-        // const {Pirate_or_Ninja,_mintAmount, _safeMint, setVoteTokenURI} = await ethers.getContractFactory("Pirate_or_Ninja");
-        const { didz, maxMintSupply } = await loadFixture( deployPirateNinjaFixture );
-        console.log("Max Mint Amount", await didz.maxMintSupply());
-        for (let i = 1; i <= maxMintSupply; i++) {
-            console.log(i);
-            // _safeMint(msg.sender, supply + i);
-            // setVoteTokenURI(supply + i, i); //STUB TEST 1 or i = 1|2|3
+    it("Should revert max mint:", async function () {
+        // Don't use fixture, for a different deployment.
+        const Pirate_or_Ninja = await ethers.getContractFactory("Pirate_or_Ninja");
+        const didz = await Pirate_or_Ninja.deploy('DIDz','TESTMAX');
+        const [owner, secondAccount] = await ethers.getSigners();
+        let maxMint = await didz.maxMintSupply();
+        let startSupply = await didz.totalSupply();
+        console.log("MAX-MINT-AMOUNT:", maxMint);
+        console.log("START-SUPPLY:",startSupply);
+        let safeMintPirateNinjaID = null;
+        for (let i = 1; i <= maxMint-startSupply; i++) { //console.log(i);
+            safeMintPirateNinjaID = await didz.safeMintPirateNinjaID(secondAccount.address,2);
         }
-        // await expect(Pirate_or_Ninja.deploy(latestTime, { value: 1 })).to.be.revertedWith(
-        //   "Unlock time should be in the future"
-        // );
-        expect(false).to.equal(false);
+        console.log("END-SUPPLY:",await didz.totalSupply());
+        expect(await didz.safeMintPirateNinjaID(secondAccount.address,2)).to.be.revertedWith("MAX-MINT reached");
+        console.log("OVER-SUPPLY-1:",await didz.totalSupply());
+        await expect(didz.safeMintPirateNinjaID(secondAccount.address,2)).to.be.revertedWith("MAX-MINT reached");
+        console.log("OVER-SUPPLY-2:",await didz.totalSupply());
+        expect(await didz.ownerOf(100)).to.equal(secondAccount.address);
+        expect(await didz.ownerOf(101)).to.be.revertedWith("ERC721: invalid token ID");
       });
     });
-  
+
+    describe("Transfers", function () {
+      xit("Should transfer the funds to the owner", async function () {
+        const { lock, unlockTime, lockedAmount, owner } = await loadFixture( deployPirateNinjaFixture );
+        await time.increaseTo(unlockTime);
+        await expect(lock.withdraw()).to.changeEtherBalances( [owner, lock],[lockedAmount, -lockedAmount] );
+      });
+    });    
+
     describe("Withdrawals", function () {
       describe("Validations", function () {
         xit("Should revert with the right error if called too soon", async function () {
@@ -116,13 +108,31 @@ const { time, loadFixture, } = require("@nomicfoundation/hardhat-network-helpers
         });
       });
   
-      describe("Transfers", function () {
-        xit("Should transfer the funds to the owner", async function () {
-          const { lock, unlockTime, lockedAmount, owner } = await loadFixture( deployPirateNinjaFixture );
-          await time.increaseTo(unlockTime);
-          await expect(lock.withdraw()).to.changeEtherBalances( [owner, lock],[lockedAmount, -lockedAmount] );
-        });
-      });
+  
+  //TODO: 
+  //X should safeMint a token to a given polygon address
+  //O should NOT safeMint a token to a given goerli address
+  //X should transfer the NFT to the recipient address.
+  //O Should replace the NFT if already minted?
+  //O Should validate an existing ID
+  //O Should invalidte a non existing ID
+  //O EVENT reverts.
+  //O Transfer to see it work, then
+  //O Should NOT be TRANSFERRABLE.
+  //O is it minting anywhere? review 003
+  //O try to combine ninja and 003?
+  //O do 005 dynamic
+  //O ambassador program AU
+  //O max 100 revert
+  //O value and withdraw
+  //O deploy URL check.
+  //O validation of identity
+  //O link to front end
+  //O owner can mint multiple IDs
+  //O non-owner cannot mint multiple.
+  //O Review on Tenderly?
+
+
     });
   });
   
