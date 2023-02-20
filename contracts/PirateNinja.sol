@@ -29,13 +29,14 @@ import "@openzeppelin/contracts/utils/Base64.sol"; //Used for NFT creation.
 import "hardhat/console.sol";
 /// @custom:security-contact spazefalcon4@protonmail.com
 contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
-
-    address payable public owner;
+    // using Counters for Counters.Counter; //dont need because of supply()+1
     using Strings for uint256; //for tokenId.toString()
     using Strings for uint8;   //for identityData.toString()
-
-    // using Counters for Counters.Counter; //dont neet because of supply()+1
-    // Counters.Counter tokenIdCounter;
+    address payable private owner; 
+    modifier onlyOwner() { ///@dev see https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/access/Ownable.sol
+        require(owner == msg.sender, "Ownable: caller is not the owner");
+        _;
+    }
     uint256 public maxMintSupply = 100; //Max number of mints from this contract.
 
     mapping (address => uint8 ) public walletVotes; 
@@ -58,7 +59,7 @@ contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
     autoBatchMint();
   }
 
-  function autoBatchMint() private { // TEST MINTS. - run by constructor.
+  function autoBatchMint() private onlyOwner { // TEST MINTS. - run by constructor.
     uint256 supply = totalSupply(); //See {IERC721Enumerable-totalSupply}.
     require(!paused);
     uint256 _mintAmount = 3;
@@ -68,32 +69,14 @@ contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
     //AUTOMATIC BATCH MINT
     for (uint8 i = 1; i <= _mintAmount; i++) {
         // console.log(supply+ i);
-        _safeMint(msg.sender, supply + i);
-        setTokenURI(supply + i, i); //STUB TEST 1 or i = 1|2|3
+        // _safeMint(msg.sender, supply + i);
+        // setTokenURI(supply + i, i); //STUB TEST 1 or i = 1|2|3
+        safeMintPirateNinjaID(owner,2);
     }
   }
 
-  // function safeMintPirateNinjaID(address to) public {
-  //   console.log("SAFEMINT to:", to, totalSupply()+1);
-  //   _safeMint(msg.sender, totalSupply() + 1);
-  //   setTokenURI(totalSupply() + 1, 1); //STUB TEST 1 or i = 1|2|3
-  // }
-
-
-  /// @dev this is to test batch mint - remove in prod
-  function setTokenURI(uint256 tokenId, uint8 identityData) public returns (string memory){
-    require(_exists(tokenId),"ERC721Metadata: URI query for nonexistent token");
-    // require(baseURI,"no base.");
-    string memory voteURL = "";
-    walletVotes[msg.sender] = identityData;  //overwritten, 1,2,3!
-    walletIndex.push(msg.sender); //TRACK INDEX fix for mapping no loop.
-    voteURL = string(abi.encodePacked(baseURI, tokenId.toString(), ".json"));  
-    _setTokenURI(tokenId,voteURL);
-    return voteURL;
-  }
-
   // function castNFTVote(address to, uint8 vote) public returns (string memory) {
-  function safeMintPirateNinjaID(address to, uint8 identityData) public returns (string memory) {
+  function safeMintPirateNinjaID(address to, uint8 identityData) public onlyOwner returns (string memory) {
       require(!paused, "contract is paused");
       require(to != address(0), "bad address");
       require((identityData ==1 || identityData ==2), "bad data");
@@ -132,41 +115,50 @@ contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
           abi.encodePacked("data:application/json;base64,", json)
       );
       // MINT--------------------------------
-      _safeMint(to, totalSupply()+1);
-      _setTokenURI(totalSupply(),finalJSONTokenUri); //This is not URL, but json obj. Saved in _tokenURIs[];
+      _safeMint(to, totalSupply()+1); //equivalent to using Counters.Counter tokenID.
+      // setTokenURI(totalSupply(),finalJSONTokenUri); //STUB TEST 1 or i = 1|2|3
+      _setTokenURI(totalSupply(),finalJSONTokenUri); //This is URL, or json obj. Saved in _tokenURIs[];
       //LATER this JSON is retrieved with _tokenURIs[tokenId]; No actual IPFS url, but Base64 encoded JSON string!
       //END MINT -----------------------------
       return "Identity Minted!";
   }
 
-  /// BELOVED - TOKENURI ----------------------------------------
-
   /// @dev See {IERC721Storage-settokenURI}.
-  function _setTokenURI(uint256 tokenId, string memory _tokenURI) public {
+  function _setTokenURI(uint256 tokenId, string memory _tokenURI) internal virtual onlyOwner {
+    // console.log('CODE2:_setTokenURI');
       require(_exists(tokenId), "ERC721URIStorage: URI set of nonexistent token");
       _tokenURIs[tokenId] = _tokenURI;
   }
   /// @dev See {IERC721Metadata-tokenURI}.
-  //RETURN CONCANTENATED URL to JSON. Where is tokenURI called?
-  function tokenURI(uint256 tokenId) public view override returns (string memory){
-    require(_exists(tokenId),"ERC721Metadata: URI query for nonexistent token");
-    _requireMinted(tokenId);
-    //Important: rely on _tokenURIs mapping.
-    string memory _tokenURI = _tokenURIs[tokenId];
-    return _tokenURI;
-  }
- /// END BELOVED - TOKENURI---------------------------------------
-
- /// ADMIN -------------------------------------
-  //START ELECTION: record votes.
-  // function startElection() public { //todo onlyadmin
-  //     require(electionRunning, "Already running");
-  //     electionRunning = true;
-  //     //RESET all ELECTION memory. TODO.
+  //RETURN CONCANTENATED URL to JSON. Where is tokenURI called? By OpenSea.
+  // function tokenURI(uint256 tokenId) public view override returns (string memory){
+  //   console.log('CODE3:tokenURI');
+  //   require(_exists(tokenId),"ERC721Metadata: URI query for nonexistent token");
+  //   _requireMinted(tokenId);
+  //   //Important: rely on _tokenURIs mapping.
+  //   string memory _tokenURI = _tokenURIs[tokenId];
+  //   return _tokenURI;
   // }
+ /// END  TOKENURI---------------------------------------
 
-  function pause(bool _state) public { //TODO OnlyAdmin or onlyOwner
+  function _beforeTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize) internal virtual override {
+    // console.log("Transfer",from,to); //Mint and Burn are 0x000...
+      super._beforeTokenTransfer(from, to, firstTokenId, batchSize);
+      require(from == address(0) || to == address(0), "SBT can only be burned");
+  }
+
+  function pause(bool _state) public onlyOwner { 
     paused = _state;
+  }
+
+  function burn(uint256 tokenId) public virtual { 
+    require(_exists(tokenId), "nonexistent token");
+    address isOwner = ERC721.ownerOf(tokenId);
+    require(msg.sender == isOwner, "non owner");
+    // console.log("INFO1",msg.sender);
+    // console.log("INFO2",isowner);
+    // console.log("INFO3",_allTokensIndex[tokenId]);
+    super._burn(tokenId);
   }
 
   // function endElection() public { //todo onlyadmin
