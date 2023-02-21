@@ -1,5 +1,6 @@
 const { time, loadFixture, } = require("@nomicfoundation/hardhat-network-helpers");
 const { anyValue } = require("@nomicfoundation/hardhat-chai-matchers/withArgs");
+// const { ethers } = require('hardhat'); //for zero address
 const { expect } = require("chai");
   // https://hardhat.org/hardhat-network-helpers/docs/reference
   // https://hardhat.org/hardhat-chai-matchers/docs/overview
@@ -11,6 +12,7 @@ describe("Pirate_or_Ninja", function () {
     const [owner, account2, account3 ] = await ethers.getSigners();
     console.log("OWNER:",owner.address);
     console.log("ADDRESS2:",account2.address);
+    console.log('DIDz Constructor');
     const Pirate_or_Ninja = await ethers.getContractFactory("Pirate_or_Ninja");
     const didz = await Pirate_or_Ninja.deploy('DIDz','TEST111');
     return { didz, timestamp, owner, account2, account3 };
@@ -50,6 +52,7 @@ describe("MINT behaviors:", function(){
       "one mint per wallet"); 
     await expect(didz.safeMintPirateNinjaID(account2.address,0)).to.be.revertedWith(
       "bad data");
+    // await expect(didz.safeMintPirateNinjaID(ethers.constants.ZeroAddress,1)).to.be.revertedWith(
     await expect(didz.safeMintPirateNinjaID("0x0000000000000000000000000000000000000000",1)).to.be.revertedWith(
       "bad address");
     expect(await didz.totalSupply()).to.equal(4);    
@@ -75,9 +78,10 @@ describe("MINT behaviors:", function(){
     await expect(didz.safeMintPirateNinjaID(account2.address,2)).to.be.revertedWith(
       "MAX-MINT reached");
     console.log("OVER-SUPPLY-2:",await didz.totalSupply());
-    expect(await didz.ownerOf(22)).to.equal(owner.address);
-    expect(await didz.ownerOf(23)).to.be.revertedWith("ERC721: invalid token ID");
-  });
+    await expect(await didz.ownerOf(await didz.totalSupply())).to.equal(owner.address);
+    const overdraft = await didz.totalSupply()+1;
+    expect(didz.ownerOf(overdraft)).to.be.revertedWith("ERC721: invalid token ID");
+  }); 
 });
 
 describe("NON-TRANSFERABLE", function () {
@@ -133,12 +137,10 @@ describe("VALIDATABLE:", function () {
 });
 
 describe("Events", function () {
-  xit("Should emit an event on withdrawals", async function () {
-    // const { lock, unlockTime, lockedAmount } = await loadFixture( deployPirateNinjaFixture );
-    // await time.increaseTo(unlockTime);
-    // await expect(lock.withdraw())
-    //   .to.emit(lock, "Withdrawal")
-    //   .withArgs(lockedAmount, anyValue); // We accept any value as `when` arg
+  it("Should emit an event on Minted and Burned", async function () {
+    const { didz, account2 } = await loadFixture( deployPirateNinjaFixture );
+    await expect(didz.safeMintPirateNinjaID(account2.address,1)).to.emit(didz, "Minted");
+    await expect(didz.connect(account2).burn(3)).to.emit(didz, "Burned");
   });
 });
 
@@ -148,7 +150,6 @@ describe("Events", function () {
   //TODO: 
 
   //O Metadata struct
-  //O Events and tests
 
   //O do 005 dynamic
   //O REPLACABLE, if the NFT if already minted?
@@ -161,8 +162,7 @@ describe("Events", function () {
   //O value and withdraw
   //O Review on Tenderly?
   //O Test on Remix (coverage)
+  //O can paused be changed
 
   //O SELL SBT but has 0x on front.
   //O npx hardhat coverage
-
-  
