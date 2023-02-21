@@ -148,7 +148,7 @@ describe("Events", function () {
   
   
 //TODO: 
-//O 1 DEPLOY on Remix (coverage) //O can paused be changed //URL?
+//X 1 DEPLOY on Remix (coverage) //O can paused be changed //URL?
     //- change batch size on beforeTransfer?
     //- connect mumbai wallet 0xD5a 800001 DEVAU or 0x46f  
     //- contract: PIRATEorNINJA 
@@ -159,8 +159,11 @@ describe("Events", function () {
     //- SOMETIMES IMAGE TAKES TIME TO LOAD BECAUSE OF METADATA.
     //O FIX timestamp and address string
     //- Review deploy to 003 script emulate for this
-//O 2 DEPLOY script. URL check. //O deploy lock find URL?
-//O 3 DEPLOY front end 003? //URL?
+//X 2 DEPLOY script. URL check.  SAME as above because same wallet.
+//O 3 DEPLOY move to WEB3_Frontend_Digital_IDz? //URL? //Read/Write? //Vercel?
+//O 4 magicNum 
+
+//O 4 WEB3_DIDZ_FULLSTACK with 005
 
 //VERSION 2
   //O Metadata struct (version 2)

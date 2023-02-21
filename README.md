@@ -305,3 +305,5 @@ All of this can be emulated strategically and systematically, from a gamificatio
 Light-Weight Identity proves the distribution menchanisms. Allowing for self-assigned-identity that can change over time, and that is non-transferrable (kinda) and is non-sellable (kinda). But nobody will be hurt if someone dies and inherits a NINJA IDENTITY. 
 
 > npx hardhat test
+
+> npx hardhat run scripts/deployPirateNinja.js --network mumbai
