@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/utils/Base64.sol"; //Used for NFT creation.
 /// @custom:security-contact spazefalcon4@protonmail.com
 /// @title PIRATE_or_NINJA, phase I of DIDz (Digital ID System)
 /// @author spazefalcon
-contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
+contract PIRATEorNINJA_1 is ERC721Enumerable { //Enumerable for totalSupply
   // using Counters for Counters.Counter; //dont need because of supply()+1
   using Strings for uint8;   //for identityData.toString() removable //TODO struct
   using Strings for uint256; //for tokenId.toString()
@@ -33,7 +33,7 @@ contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
     safeMintPirateNinjaID(owner, 2);
   }
 
-  function safeMintPirateNinjaID(address to, uint8 identityData) public returns (string memory) {
+function safeMintPirateNinjaID(address to, uint8 identityData) public returns (string memory) {
     require(!paused, "contract is paused");
     require(to != address(0), "bad address");
     require((identityData == 1 || identityData == 2), "bad data");
@@ -41,30 +41,47 @@ contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
     if(to != owner){ //owner may mint more than once for test purposes.
       require(!validateIDz(to), "one mint per wallet");
     }
-    string memory voteURL = "";
-    string memory imageURLIPFS = "3";
+    string memory idSTR = "";
+    string memory descSTR = "";
+    string memory didzURL = "";
+    string memory imageURLIPFS = "0";
+    // string memory timestamp =  string(abi.encodePacked(block.timestamp));
+    // string memory timestamp =  string(abi.encodePacked(now));
     if(identityData==1){ //selection 1 img
+      idSTR="PIRATE";
       imageURLIPFS = "ipfs://bafybeiabjffxg6grlmirw6mum6utcl4zbrukiytmqrbbt2jy2c2wkfekye/1.jpg"; //PIRATE
     } else if (identityData==2){ //or selection2 img
+      idSTR="NINJA";
       imageURLIPFS = "ipfs://bafybeiabjffxg6grlmirw6mum6utcl4zbrukiytmqrbbt2jy2c2wkfekye/2.jpg"; //NINJA
     }
+    // descSTR = "ID for 0x123 on 1234 as name";
+    // descSTR = string( abi.encodePacked( "ID for a ", idSTR, ", at 0x123...456, as alias." ) );
+    // descSTR = string( abi.encodePacked( "ID for ", idSTR, ", \n As alias, \n At: ",to," \n On DATE: ", block.timestamp   ) );
+    // descSTR = string( abi.encodePacked( "ID for ", idSTR, ", As alias, At: addr, On DATE: ", block.timestamp   ) );
+    descSTR = string( abi.encodePacked( "ID for ", idSTR, ", As alias, At: addr, On DATE: 123456" ) );
     DIDzToDataMap[to] = identityData; //STUB (below also)
     DIDzAddressArray.push(to); //TRACK INDEX fix for mapping no loop.
     emit Minted(to);
-    voteURL = string(abi.encodePacked(baseURI, identityData.toString(), ".json")); 
+    didzURL = string(abi.encodePacked(baseURI, identityData.toString(), ".json")); 
     string memory json = Base64.encode(
         bytes(
             string(
                 abi.encodePacked(
                   '{"name": "',
-                  string( abi.encodePacked( "Identity", Strings.toString(totalSupply()+1) ) ),
-                  '", "description": "descripto...", "image": "',
+                  string( abi.encodePacked( "I am a ", idSTR ) ),
+                  '", ',
+                  '"description": "',
+                  string( abi.encodePacked( "DIDz: ", descSTR ) ),
+                  '", "image": "',
                   imageURLIPFS,
                   '"}'
                 )
-            )
+            ) 
         )
     );
+                  // '", "description": "I am a ", "image": "',
+                  // string( abi.encodePacked( "ID: ", Strings.toString(totalSupply()+1) ) ),
+                  // '", "description": "I am a "',idSTR," ",descSTR,' "image": "',
     string memory finalJSONTokenUri = string( // Prefix: data:application/json;base64
         abi.encodePacked("data:application/json;base64,", json)
     );
@@ -80,6 +97,15 @@ contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
     _tokenURIs[tokenId] = _tokenURI; /// @dev See {IERC721Metadata-tokenURI}.
   }   
 
+  /// @dev See {IERC721Metadata-tokenURI}. RETURN CONCAT URL in JSON. Called by opensea to render.
+  function tokenURI(uint256 tokenId) public view override returns (string memory){
+    require(_exists(tokenId),"ERC721Metadata: URI query for nonexistent token");
+    _requireMinted(tokenId);
+    string memory _tokenURI = _tokenURIs[tokenId]; //Important: rely on _tokenURIs mapping.
+    return _tokenURI;
+  }
+
+  // function _beforeTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize) internal virtual override {
   function _beforeTokenTransfer(address from, address to, uint256 firstTokenId, uint256 batchSize) internal virtual override {
     super._beforeTokenTransfer(from, to, firstTokenId, batchSize); //Mint and Burn are 0x000...
     require(from == address(0) || to == address(0), "SBT can only be burned");
@@ -105,24 +131,6 @@ contract Pirate_or_Ninja is ERC721Enumerable { //Enumerable for totalSupply
   }
 
 }
-
-
-    // autoBatchMint();
-  // function autoBatchMint() private onlyOwner { // TEST MINTS. - run by constructor.
-  //   uint256 supply = totalSupply(); //See {IERC721Enumerable-totalSupply}.
-  //   require(!paused);
-  //   uint256 _mintAmount = 3;
-  //   require(_mintAmount > 0);
-  //   require( totalSupply() <= maxMintSupply); //MINT MAX
-  //   require(supply + _mintAmount <= maxMintSupply); //less than maximum allowed.
-  //   //AUTOMATIC BATCH MINT
-  //   for (uint8 i = 1; i <= _mintAmount; i++) {
-  //       // console.log(supply+ i);
-  //       // _safeMint(msg.sender, supply + i);
-  //       // setTokenURI(supply + i, i); //STUB TEST 1 or i = 1|2|3
-  //       safeMintPirateNinjaID(owner,2);
-  //   }
-  // }
 
   //USE-CASES:
 // PIRATEorNINJA - MINT YOUR IDENTITY

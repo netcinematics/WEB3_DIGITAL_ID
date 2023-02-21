@@ -5,7 +5,7 @@ const { expect } = require("chai");
   // https://hardhat.org/hardhat-network-helpers/docs/reference
   // https://hardhat.org/hardhat-chai-matchers/docs/overview
 
-describe("Pirate_or_Ninja", function () {
+describe("PIRATEorNINJA_1", function () {
   async function deployPirateNinjaFixture() { //define fixture
     const timestamp = (await time.latest());
     // Contracts are deployed using the first signer/account by default
@@ -13,8 +13,8 @@ describe("Pirate_or_Ninja", function () {
     console.log("OWNER:",owner.address);
     console.log("ADDRESS2:",account2.address);
     console.log('DIDz Constructor');
-    const Pirate_or_Ninja = await ethers.getContractFactory("Pirate_or_Ninja");
-    const didz = await Pirate_or_Ninja.deploy('DIDz','TEST111');
+    const PIRATEorNINJA_1 = await ethers.getContractFactory("PIRATEorNINJA_1");
+    const didz = await PIRATEorNINJA_1.deploy('DIDz','TEST111');
     return { didz, timestamp, owner, account2, account3 };
   }
 
@@ -60,8 +60,8 @@ describe("MINT behaviors:", function(){
 
   it("Should revert MAX-MINT:", async function () {
     //New fixture, for a different deployment.
-    const Pirate_or_Ninja = await ethers.getContractFactory("Pirate_or_Ninja");
-    const didz = await Pirate_or_Ninja.deploy('DIDz','TESTMAX');
+    const PIRATEorNINJA_1 = await ethers.getContractFactory("PIRATEorNINJA_1");
+    const didz = await PIRATEorNINJA_1.deploy('DIDz','TESTMAX');
     const [owner, account2] = await ethers.getSigners();
     let maxMint = await didz.maxMintSupply();
     let startSupply = await didz.totalSupply();
@@ -144,25 +144,31 @@ describe("Events", function () {
   });
 });
 
-}); //END-PIRATE_or_NINJA
+}); //END-PIRATEorNINJA_1
   
   
-  //TODO: 
+//TODO: 
+//O 1 DEPLOY on Remix (coverage) //O can paused be changed //URL?
+    //- change batch size on beforeTransfer?
+    //- connect mumbai wallet 0xD5a 800001 DEVAU or 0x46f  
+    //- contract: PIRATEorNINJA 
+    //- deploy "DIDzv1", "100"
+    //- https://testnets.opensea.io/0xd5A0c036B0693A156042F0D3bFD84174B42cfDC7
+    //- LOOKAT: name & symbol, baseURI, totalSupply, owmerOf(1), maxMintSupply,
+    //- tokenURI(1): json ipfs - requires tokenURI to render card.
+    //- SOMETIMES IMAGE TAKES TIME TO LOAD BECAUSE OF METADATA.
+    //O FIX timestamp and address string
+    //- Review deploy to 003 script emulate for this
+//O 2 DEPLOY script. URL check. //O deploy lock find URL?
+//O 3 DEPLOY front end 003? //URL?
 
-  //O Metadata struct
-
-  //O do 005 dynamic
-  //O REPLACABLE, if the NFT if already minted?
-  //O try to combine SVG ninja and 003?
-  
-  //O is it minting anywhere? review 003 //deploy URL
-  //O deploy URL check.
-  //O link to front end
-
+//VERSION 2
+  //O Metadata struct (version 2)
+  //O do 005 dynamic (version 2)
+  //O REPLACABLE, if the NFT if already minted? (version 2)
   //O value and withdraw
   //O Review on Tenderly?
-  //O Test on Remix (coverage)
-  //O can paused be changed
-
   //O SELL SBT but has 0x on front.
-  //O npx hardhat coverage
+
+
+  
