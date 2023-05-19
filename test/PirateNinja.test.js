@@ -145,8 +145,7 @@ describe("Events", function () {
 });
 
 }); //END-PIRATEorNINJA_1
-  
-  
+    
 //TODO: 
 //X 1 DEPLOY on Remix (coverage) //O can paused be changed //URL?
     //- change batch size on beforeTransfer?
@@ -158,10 +157,12 @@ describe("Events", function () {
     //- tokenURI(1): json ipfs - requires tokenURI to render card.
     //- SOMETIMES IMAGE TAKES TIME TO LOAD BECAUSE OF METADATA.
     //O FIX timestamp and address string
+    //O REVIEW all interfaces.
     //- Review deploy to 003 script emulate for this
+
 //X 2 DEPLOY script. URL check.  SAME as above because same wallet.
 //O 3 DEPLOY move to WEB3_Frontend_Digital_IDz? //URL? //Read/Write? //Vercel?
-//O 4 magicNum 
+//O 4 INTERACT magicNum --goerli network="maticmum"
 
 //O 4 WEB3_DIDZ_FULLSTACK with 005
 

@@ -307,3 +307,5 @@ Light-Weight Identity proves the distribution menchanisms. Allowing for self-ass
 > npx hardhat test
 
 > npx hardhat run scripts/deployPirateNinja.js --network mumbai
+
+> npx hardhat run scripts/interactPirateNinja.js --network mumbai
